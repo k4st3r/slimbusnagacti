@@ -72,6 +72,8 @@ function post_process_extracted_contents
     sudo chmod -R g+rwx /var/lib/nagios3
     sudo /etc/init.d/nagios3 restart
     sudo /etc/init.d/apache2 restart
+    sudo sed -i 's/debug=0/debug=1/g' /etc/init.d/nsca.cfg
+    sudo sed -i 's/#password=/password=testpass/g' /etc/init.d/nsca.cfg
     sudo /etc/init.d/nsca start
     echo && echo "$FUNCNAME now exiting" 
   ) | tee -a $SCRIPTLOG
@@ -124,8 +126,8 @@ __ARCHIVE_BELOW__
 # To extract the files from this archive, save it to some FILE, remove
 # everything before the `#!/bin/sh' line above, then type `sh FILE'.
 #
-lock_dir=_sh26985
-# Made on 2012-08-28 21:54 UTC by <ubuntu@server-3455>.
+lock_dir=_sh00790
+# Made on 2012-08-29 22:11 UTC by <ubuntu@server-3455>.
 # Source directory was `/home/ubuntu/shar'.
 #
 # Existing files will *not* be overwritten, unless `-c' is specified.
@@ -136,12 +138,12 @@ lock_dir=_sh26985
 #    477 -rw-r--r-- etc/nagios-plugins/config/jmx.cfg
 #     50 -rw-r--r-- etc/nagios3/htpasswd.users
 #    370 -rw-r--r-- etc/nagios3/conf.d/discovered_mock_host.cfg
-#    666 -rw-r--r-- etc/nagios3/conf.d/discovered_hostgroups.cfg
+#    665 -rw-r--r-- etc/nagios3/conf.d/discovered_hostgroups.cfg
 #   1168 -rw-r--r-- etc/nagios3/conf.d/generic-host_nagios2.cfg
 #    657 -rw-r--r-- etc/nagios3/conf.d/services_nagios2.cfg
 #   1772 -rw-r--r-- etc/nagios3/conf.d/discovered_hosts_commands.cfg
-#    678 -rw-r--r-- etc/nagios3/conf.d/hostgroups_nagios2.cfg
-#   1505 -rw-r--r-- etc/nagios3/conf.d/discovered_host_services.cfg
+#    700 -rw-r--r-- etc/nagios3/conf.d/hostgroups_nagios2.cfg
+#   2808 -rw-r--r-- etc/nagios3/conf.d/discovered_host_services.cfg
 #   2443 -rw-r--r-- etc/nagios3/commands.cfg
 #   5124 -rw-r--r-- etc/nagios3/ndomod.cfg
 #   4487 -rw------- etc/nagios3/ndo2db.cfg
@@ -476,12 +478,11 @@ X                alias           hazelcast-servers
 X        }
 X
 define hostgroup {
-X	hostgroup_name snmp-servers
+X	hostgroup_name	snmp-servers
 X		alias		snmp-servers
 X	}
-X
 SHAR_EOF
-  (set 20 12 08 27 16 17 02 'etc/nagios3/conf.d/discovered_hostgroups.cfg'
+  (set 20 12 08 29 17 00 04 'etc/nagios3/conf.d/discovered_hostgroups.cfg'
    eval "${shar_touch}") && \
   chmod 0644 'etc/nagios3/conf.d/discovered_hostgroups.cfg'
 if test $? -ne 0
@@ -491,11 +492,11 @@ fi
   then (
        ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/discovered_hostgroups.cfg': 'MD5 check failed'
        ) << \SHAR_EOF
-a5f1a7d27e7a7b4c2b7fe31d6aecfcd0  etc/nagios3/conf.d/discovered_hostgroups.cfg
+42448ca31299d5e7d7bf86347c866356  etc/nagios3/conf.d/discovered_hostgroups.cfg
 SHAR_EOF
   else
-test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_hostgroups.cfg'` -ne 666 && \
-  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_hostgroups.cfg' is not 666"
+test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_hostgroups.cfg'` -ne 665 && \
+  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_hostgroups.cfg' is not 665"
   fi
 fi
 # ============= etc/nagios3/conf.d/generic-host_nagios2.cfg ==============
@@ -647,7 +648,7 @@ X	}
 X
 X
 SHAR_EOF
-  (set 20 12 08 28 21 04 00 'etc/nagios3/conf.d/discovered_hosts_commands.cfg'
+  (set 20 12 08 29 21 40 14 'etc/nagios3/conf.d/discovered_hosts_commands.cfg'
    eval "${shar_touch}") && \
   chmod 0644 'etc/nagios3/conf.d/discovered_hosts_commands.cfg'
 if test $? -ne 0
@@ -677,7 +678,7 @@ X
 define hostgroup {
 X        hostgroup_name  all
 X		alias           All Servers
-X		members         *
+X		members         *,!discovered_mock_host
 X        }
 X
 # A list of your Debian GNU/Linux servers
@@ -703,7 +704,7 @@ X        }
 X
 X
 SHAR_EOF
-  (set 20 12 08 15 18 10 54 'etc/nagios3/conf.d/hostgroups_nagios2.cfg'
+  (set 20 12 08 29 21 43 42 'etc/nagios3/conf.d/hostgroups_nagios2.cfg'
    eval "${shar_touch}") && \
   chmod 0644 'etc/nagios3/conf.d/hostgroups_nagios2.cfg'
 if test $? -ne 0
@@ -713,11 +714,11 @@ fi
   then (
        ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/hostgroups_nagios2.cfg': 'MD5 check failed'
        ) << \SHAR_EOF
-e1e4aeae58e9ab9ac46540ad04804baa  etc/nagios3/conf.d/hostgroups_nagios2.cfg
+60b6fb898e2df78cfc6984cc698690a0  etc/nagios3/conf.d/hostgroups_nagios2.cfg
 SHAR_EOF
   else
-test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/hostgroups_nagios2.cfg'` -ne 678 && \
-  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/hostgroups_nagios2.cfg' is not 678"
+test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/hostgroups_nagios2.cfg'` -ne 700 && \
+  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/hostgroups_nagios2.cfg' is not 700"
   fi
 fi
 # ============= etc/nagios3/conf.d/discovered_host_services.cfg ==============
@@ -731,6 +732,7 @@ ${echo} "x - extracting etc/nagios3/conf.d/discovered_host_services.cfg (text)"
 define service {
 X        hostgroup_name                  smtp-servers
 X        service_description             SMTP
+X	servicegroups			smtp
 X 	check_command                   check_smtp
 X        use                             generic-service
 X	notification_interval           0 ; set > 0 if you want to be renotified
@@ -740,35 +742,76 @@ define service {
 X	host_name			discovered_mock_host
 X	hostgroup_name			nimbus-servers
 X	service_description		CAMEL_ROUTE_EXCEPTION
-X	check_command			check_dummy
+X	servicegroups			nimbus
+X	check_command			check_dummy!0
+X	use				generic-service
+X	notification_interval		1
+X	contact_groups			qa
+}
+define service {
+X	host_name			discovered_mock_host
+X        hostgroup_name                  tomcat-servers
+X        service_description             TOMCAT
+X	servicegroups			tomcat
+X        check_command                   check_tomcat
+X        use                             generic-service
+X        notification_interval           0 ; set > 0 if you want to be renotified
+}
+X
+define service {
+X	host_name			discovered_mock_host
+X        hostgroup_name                  hazelcast-servers
+X        service_description             HAZELCAST
+X        servicegroups			hazelcast
+X	check_command                   check_hazelcast
+X        use                             generic-service
+X        notification_interval           0 ; set > 0 if you want to be renotified
+}
+X
+define service {
+X	host_name			discovered_mock_host
+X        hostgroup_name                  nimbus-servers
+X        service_description             NIMBUS
+X        servicegroups			nimbus
+X	check_command                   check_nimbus
+X        use                             generic-service
+X        notification_interval           0 ; set > 0 if you want to be renotified
+}
+X
+define service {
+X	host_name			discovered_mock_host
+X	hostgroup_name			snmp-servers
+X	service_description		SNMP_SYSTEM_LOAD
+X	servicegroups			snmp
+X	check_command			wcheck_snmp_load!stand!80!95!!public
 X	use				generic-service
 X	notification_interval		0
 }
-#define service {
-#        hostgroup_name                  tomcat-servers
-#        service_description             TOMCAT
-#        check_command                   check_tomcat
-#        use                             generic-service
-#        notification_interval           0 ; set > 0 if you want to be renotified
-#}
 X
-#define service {
-#        hostgroup_name                  hazelcast-servers
-#        service_description             HAZELCAST
-#        check_command                   check_hazelcast
-#        use                             generic-service
-#        notification_interval           0 ; set > 0 if you want to be renotified
-#}
 X
-#define service {
-#        hostgroup_name                  nimbus-servers
-#        service_description             NIMBUS
-#        check_command                   check_nimbus
-#        use                             generic-service
-#        notification_interval           0 ; set > 0 if you want to be renotified
-#}
+define service {
+X        host_name                       discovered_mock_host
+X        hostgroup_name                  snmp-servers
+X        service_description             SNMP_SYSTEM_MEMORY
+X        servicegroups                   snmp
+X        check_command                   wcheck_snmp_mem!!80,5!95,10!!public
+X        use                             generic-service
+X        notification_interval           0
+}
+X
+X
+define service {
+X        host_name                       discovered_mock_host
+X        hostgroup_name                  snmp-servers
+X        service_description             SNMP_SYSTEM_STORAGE
+X        servicegroups                   snmp
+X        check_command                   wcheck_snmp_storage!/!80!95!!public
+X        use                             generic-service
+X        notification_interval           0
+}
+X
 SHAR_EOF
-  (set 20 12 08 15 18 10 54 'etc/nagios3/conf.d/discovered_host_services.cfg'
+  (set 20 12 08 29 21 38 54 'etc/nagios3/conf.d/discovered_host_services.cfg'
    eval "${shar_touch}") && \
   chmod 0644 'etc/nagios3/conf.d/discovered_host_services.cfg'
 if test $? -ne 0
@@ -778,11 +821,11 @@ fi
   then (
        ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/discovered_host_services.cfg': 'MD5 check failed'
        ) << \SHAR_EOF
-e46e632d28db40af7f1179c09da411cb  etc/nagios3/conf.d/discovered_host_services.cfg
+94cf806d144c1c471e4174c3baf0bfff  etc/nagios3/conf.d/discovered_host_services.cfg
 SHAR_EOF
   else
-test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_host_services.cfg'` -ne 1505 && \
-  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_host_services.cfg' is not 1505"
+test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_host_services.cfg'` -ne 2808 && \
+  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_host_services.cfg' is not 2808"
   fi
 fi
 # ============= etc/nagios3/commands.cfg ==============
