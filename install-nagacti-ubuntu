@@ -72,8 +72,8 @@ function post_process_extracted_contents
     sudo chmod -R g+rwx /var/lib/nagios3
     sudo /etc/init.d/nagios3 restart
     sudo /etc/init.d/apache2 restart
-    sudo sed -i 's/debug=0/debug=1/g' /etc/init.d/nsca.cfg
-    sudo sed -i 's/#password=/password=testpass/g' /etc/init.d/nsca.cfg
+    sudo sed -i 's/debug=0/debug=1/g' /etc/nsca.cfg
+    sudo sed -i 's/#password=/password=testpass/g' /etc/nsca.cfg
     sudo /etc/init.d/nsca start
     echo && echo "$FUNCNAME now exiting" 
   ) | tee -a $SCRIPTLOG
