@@ -126,8 +126,8 @@ __ARCHIVE_BELOW__
 # To extract the files from this archive, save it to some FILE, remove
 # everything before the `#!/bin/sh' line above, then type `sh FILE'.
 #
-lock_dir=_sh07566
-# Made on 2012-08-29 23:09 UTC by <ubuntu@server-3455>.
+lock_dir=_sh11872
+# Made on 2012-08-29 23:48 UTC by <ubuntu@server-3455>.
 # Source directory was `/home/ubuntu/shar'.
 #
 # Existing files will *not* be overwritten, unless `-c' is specified.
@@ -141,10 +141,11 @@ lock_dir=_sh07566
 #    463 -rw-r--r-- etc/nagios3/conf.d/discovered_host_servicegroups.cfg
 #    665 -rw-r--r-- etc/nagios3/conf.d/discovered_hostgroups.cfg
 #   1168 -rw-r--r-- etc/nagios3/conf.d/generic-host_nagios2.cfg
+#    715 -rw-rw-r-- etc/nagios3/conf.d/discovered_contacts.cfg
 #    657 -rw-r--r-- etc/nagios3/conf.d/services_nagios2.cfg
 #   1772 -rw-r--r-- etc/nagios3/conf.d/discovered_hosts_commands.cfg
 #    700 -rw-r--r-- etc/nagios3/conf.d/hostgroups_nagios2.cfg
-#   2787 -rw-r--r-- etc/nagios3/conf.d/discovered_host_services.cfg
+#   2874 -rw-r--r-- etc/nagios3/conf.d/discovered_host_services.cfg
 #   2443 -rw-r--r-- etc/nagios3/commands.cfg
 #   5124 -rw-r--r-- etc/nagios3/ndomod.cfg
 #   4487 -rw------- etc/nagios3/ndo2db.cfg
@@ -412,7 +413,7 @@ X     	    use	generic-host
 X	    host_name	discovered_mock_host
 X            alias	Placeholder for unpopulated host groups
 X	    display_name	IGNORE_ME
-X	    address	127.0.0.1
+X	    address	mock_host
 X	    initial_state	u
 X	    max_check_attempts	1
 X            active_checks_enabled	0
@@ -422,7 +423,7 @@ X	    notification_options	n
 X            }
 X
 SHAR_EOF
-  (set 20 12 08 15 18 10 54 'etc/nagios3/conf.d/discovered_mock_host.cfg'
+  (set 20 12 08 29 23 47 40 'etc/nagios3/conf.d/discovered_mock_host.cfg'
    eval "${shar_touch}") && \
   chmod 0644 'etc/nagios3/conf.d/discovered_mock_host.cfg'
 if test $? -ne 0
@@ -432,7 +433,7 @@ fi
   then (
        ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/discovered_mock_host.cfg': 'MD5 check failed'
        ) << \SHAR_EOF
-7f76b81521826bbb89b2381755b005a9  etc/nagios3/conf.d/discovered_mock_host.cfg
+eee45bff61311b66799e480bfc536597  etc/nagios3/conf.d/discovered_mock_host.cfg
 SHAR_EOF
   else
 test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_mock_host.cfg'` -ne 370 && \
@@ -601,6 +602,56 @@ SHAR_EOF
   else
 test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/generic-host_nagios2.cfg'` -ne 1168 && \
   ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/generic-host_nagios2.cfg' is not 1168"
+  fi
+fi
+# ============= etc/nagios3/conf.d/discovered_contacts.cfg ==============
+if test -n "${keep_file}" && test -f 'etc/nagios3/conf.d/discovered_contacts.cfg'
+then
+${echo} "x - SKIPPING etc/nagios3/conf.d/discovered_contacts.cfg (file already exists)"
+else
+${echo} "x - extracting etc/nagios3/conf.d/discovered_contacts.cfg (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'etc/nagios3/conf.d/discovered_contacts.cfg' &&
+# In this simple config file
+X
+define contact{
+X        contact_name                    nimbus_op 
+X        alias                           Nimbus Operator
+X        service_notification_period     24x7
+X        host_notification_period        24x7
+X        service_notification_options    w,u,c,r
+X        host_notification_options       d,r
+X        service_notification_commands   notify-service-by-email
+X        host_notification_commands      notify-host-by-email
+X        email                           root@localhost
+X        }
+X
+X
+#
+# CONTACT GROUPS
+#
+X
+define contactgroup{
+X        contactgroup_name       nimbus_ops
+X        alias                   Nimbus Operators
+X        members                 nimbus_op
+X        }
+X
+SHAR_EOF
+  (set 20 12 08 29 23 40 58 'etc/nagios3/conf.d/discovered_contacts.cfg'
+   eval "${shar_touch}") && \
+  chmod 0664 'etc/nagios3/conf.d/discovered_contacts.cfg'
+if test $? -ne 0
+then ${echo} "restore of etc/nagios3/conf.d/discovered_contacts.cfg failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/discovered_contacts.cfg': 'MD5 check failed'
+       ) << \SHAR_EOF
+86dd99b1a4ec08afc934e907a19081dd  etc/nagios3/conf.d/discovered_contacts.cfg
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_contacts.cfg'` -ne 715 && \
+  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_contacts.cfg' is not 715"
   fi
 fi
 # ============= etc/nagios3/conf.d/services_nagios2.cfg ==============
@@ -806,6 +857,7 @@ X	servicegroups			nimbus
 X	check_command			check_dummy!0
 X	use				generic-service
 X	notification_interval		1
+X	contact_groups			nimbus_ops
 }
 define service {
 X	host_name			discovered_mock_host
@@ -825,6 +877,7 @@ X        servicegroups			hazelcast
 X	check_command                   check_hazelcast
 X        use                             generic-service
 X        notification_interval           0 ; set > 0 if you want to be renotified
+X	contact_groups			nimbus_ops
 }
 X
 define service {
@@ -835,6 +888,7 @@ X        servicegroups			nimbus
 X	check_command                   check_nimbus
 X        use                             generic-service
 X        notification_interval           0 ; set > 0 if you want to be renotified
+X	contact_groups			nimbus_ops
 }
 X
 define service {
@@ -870,7 +924,7 @@ X        notification_interval           0
 }
 X
 SHAR_EOF
-  (set 20 12 08 29 23 08 59 'etc/nagios3/conf.d/discovered_host_services.cfg'
+  (set 20 12 08 29 23 46 28 'etc/nagios3/conf.d/discovered_host_services.cfg'
    eval "${shar_touch}") && \
   chmod 0644 'etc/nagios3/conf.d/discovered_host_services.cfg'
 if test $? -ne 0
@@ -880,11 +934,11 @@ fi
   then (
        ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/discovered_host_services.cfg': 'MD5 check failed'
        ) << \SHAR_EOF
-cf7df18e69ca84d22f2eaa96d9fdb7d9  etc/nagios3/conf.d/discovered_host_services.cfg
+b036374ccdf13651955bfd1959649931  etc/nagios3/conf.d/discovered_host_services.cfg
 SHAR_EOF
   else
-test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_host_services.cfg'` -ne 2787 && \
-  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_host_services.cfg' is not 2787"
+test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_host_services.cfg'` -ne 2874 && \
+  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_host_services.cfg' is not 2874"
   fi
 fi
 # ============= etc/nagios3/commands.cfg ==============
