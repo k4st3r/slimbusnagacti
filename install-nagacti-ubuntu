@@ -126,8 +126,8 @@ __ARCHIVE_BELOW__
 # To extract the files from this archive, save it to some FILE, remove
 # everything before the `#!/bin/sh' line above, then type `sh FILE'.
 #
-lock_dir=_sh11872
-# Made on 2012-08-29 23:48 UTC by <ubuntu@server-3455>.
+lock_dir=_sh12648
+# Made on 2012-08-29 23:52 UTC by <ubuntu@server-3455>.
 # Source directory was `/home/ubuntu/shar'.
 #
 # Existing files will *not* be overwritten, unless `-c' is specified.
@@ -145,7 +145,7 @@ lock_dir=_sh11872
 #    657 -rw-r--r-- etc/nagios3/conf.d/services_nagios2.cfg
 #   1772 -rw-r--r-- etc/nagios3/conf.d/discovered_hosts_commands.cfg
 #    700 -rw-r--r-- etc/nagios3/conf.d/hostgroups_nagios2.cfg
-#   2874 -rw-r--r-- etc/nagios3/conf.d/discovered_host_services.cfg
+#   2880 -rw-r--r-- etc/nagios3/conf.d/discovered_host_services.cfg
 #   2443 -rw-r--r-- etc/nagios3/commands.cfg
 #   5124 -rw-r--r-- etc/nagios3/ndomod.cfg
 #   4487 -rw------- etc/nagios3/ndo2db.cfg
@@ -893,7 +893,7 @@ X	contact_groups			nimbus_ops
 X
 define service {
 X	host_name			discovered_mock_host
-X	hostgroup_name			snmp-servers
+X	hostgroup_name			nimbus-servers
 X	service_description		SNMP_SYSTEM_LOAD
 X	servicegroups			snmp
 X	check_command			wcheck_snmp_load!stand!80!95!!public
@@ -904,7 +904,7 @@ X
 X
 define service {
 X        host_name                       discovered_mock_host
-X        hostgroup_name                  snmp-servers
+X        hostgroup_name                  nimbus-servers
 X        service_description             SNMP_SYSTEM_MEMORY
 X        servicegroups                   snmp
 X        check_command                   wcheck_snmp_mem!!80,5!95,10!!public
@@ -915,7 +915,7 @@ X
 X
 define service {
 X        host_name                       discovered_mock_host
-X        hostgroup_name                  snmp-servers
+X        hostgroup_name                  nimbus-servers
 X        service_description             SNMP_SYSTEM_STORAGE
 X        servicegroups                   snmp
 X        check_command                   wcheck_snmp_storage!/!80!95!!public
@@ -924,7 +924,7 @@ X        notification_interval           0
 }
 X
 SHAR_EOF
-  (set 20 12 08 29 23 46 28 'etc/nagios3/conf.d/discovered_host_services.cfg'
+  (set 20 12 08 29 23 52 25 'etc/nagios3/conf.d/discovered_host_services.cfg'
    eval "${shar_touch}") && \
   chmod 0644 'etc/nagios3/conf.d/discovered_host_services.cfg'
 if test $? -ne 0
@@ -934,11 +934,11 @@ fi
   then (
        ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/discovered_host_services.cfg': 'MD5 check failed'
        ) << \SHAR_EOF
-b036374ccdf13651955bfd1959649931  etc/nagios3/conf.d/discovered_host_services.cfg
+d28a43d142fea5ef22c4e7b0de9c7a9a  etc/nagios3/conf.d/discovered_host_services.cfg
 SHAR_EOF
   else
-test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_host_services.cfg'` -ne 2874 && \
-  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_host_services.cfg' is not 2874"
+test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_host_services.cfg'` -ne 2880 && \
+  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_host_services.cfg' is not 2880"
   fi
 fi
 # ============= etc/nagios3/commands.cfg ==============
