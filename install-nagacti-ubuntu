@@ -126,8 +126,8 @@ __ARCHIVE_BELOW__
 # To extract the files from this archive, save it to some FILE, remove
 # everything before the `#!/bin/sh' line above, then type `sh FILE'.
 #
-lock_dir=_sh00790
-# Made on 2012-08-29 22:11 UTC by <ubuntu@server-3455>.
+lock_dir=_sh02414
+# Made on 2012-08-29 22:22 UTC by <ubuntu@server-3455>.
 # Source directory was `/home/ubuntu/shar'.
 #
 # Existing files will *not* be overwritten, unless `-c' is specified.
@@ -138,6 +138,7 @@ lock_dir=_sh00790
 #    477 -rw-r--r-- etc/nagios-plugins/config/jmx.cfg
 #     50 -rw-r--r-- etc/nagios3/htpasswd.users
 #    370 -rw-r--r-- etc/nagios3/conf.d/discovered_mock_host.cfg
+#    716 -rw-r--r-- etc/nagios3/conf.d/discovered_host_servicegroups.cfg
 #    665 -rw-r--r-- etc/nagios3/conf.d/discovered_hostgroups.cfg
 #   1168 -rw-r--r-- etc/nagios3/conf.d/generic-host_nagios2.cfg
 #    657 -rw-r--r-- etc/nagios3/conf.d/services_nagios2.cfg
@@ -438,7 +439,7 @@ test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_mock_host.cfg'` -ne 370 &&
   ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_mock_host.cfg' is not 370"
   fi
 fi
-# ============= etc/nagios3/conf.d/discovered_hostgroups.cfg ==============
+# ============= etc/nagios3/conf.d/discovered_host_servicegroups.cfg ==============
 if test ! -d 'etc/nagios3/conf.d'; then
   mkdir 'etc/nagios3/conf.d'
 if test $? -eq 0
@@ -447,6 +448,72 @@ else ${echo} "x - failed to create directory etc/nagios3/conf.d."
      exit 1
 fi
 fi
+if test -n "${keep_file}" && test -f 'etc/nagios3/conf.d/discovered_host_servicegroups.cfg'
+then
+${echo} "x - SKIPPING etc/nagios3/conf.d/discovered_host_servicegroups.cfg (file already exists)"
+else
+${echo} "x - extracting etc/nagios3/conf.d/discovered_host_servicegroups.cfg (text)"
+  sed 's/^X//' << 'SHAR_EOF' > 'etc/nagios3/conf.d/discovered_host_servicegroups.cfg' &&
+define servicegroup {
+X	servicegroup_name	ssh
+X	alias			ssh
+X	servicegroup_members	ssh-servers
+X	}
+X
+define servicegroup {
+X	servicegroup_name	smtp
+X	alias			smtp
+X	servicegroup_members	smtp-servers
+X	}
+X
+define servicegroup {
+X	servicegroup_name	nimbus
+X	alias			nimbus
+X	servicegroup_members	nimbus-servers
+X	}
+X
+define servicegroup {
+X	servicegroup_name	snmp
+X	alias			snmp
+X	servicegroup_members	snmp-servers
+X	}
+X
+define servicegroup {
+X	servicegroup_name	http
+X	alias			http
+X	servicegroup_members	http-servers
+X	}
+X
+define servicegroup {
+X	servicegroup_name	tomcat
+X	alias			tomcat
+X	servicegroup_members	tomcat-servers
+X	}
+X
+define servicegroup {
+X	servicegroup_name	hazelcast
+X	alias			hazelcast
+X	servicegroup_members	hazelcast-servers
+X	}
+SHAR_EOF
+  (set 20 12 08 29 22 21 53 'etc/nagios3/conf.d/discovered_host_servicegroups.cfg'
+   eval "${shar_touch}") && \
+  chmod 0644 'etc/nagios3/conf.d/discovered_host_servicegroups.cfg'
+if test $? -ne 0
+then ${echo} "restore of etc/nagios3/conf.d/discovered_host_servicegroups.cfg failed"
+fi
+  if ${md5check}
+  then (
+       ${MD5SUM} -c >/dev/null 2>&1 || ${echo} 'etc/nagios3/conf.d/discovered_host_servicegroups.cfg': 'MD5 check failed'
+       ) << \SHAR_EOF
+bd0ed8a881b8a1d521fb6ea34bffe11e  etc/nagios3/conf.d/discovered_host_servicegroups.cfg
+SHAR_EOF
+  else
+test `LC_ALL=C wc -c < 'etc/nagios3/conf.d/discovered_host_servicegroups.cfg'` -ne 716 && \
+  ${echo} "restoration warning:  size of 'etc/nagios3/conf.d/discovered_host_servicegroups.cfg' is not 716"
+  fi
+fi
+# ============= etc/nagios3/conf.d/discovered_hostgroups.cfg ==============
 if test -n "${keep_file}" && test -f 'etc/nagios3/conf.d/discovered_hostgroups.cfg'
 then
 ${echo} "x - SKIPPING etc/nagios3/conf.d/discovered_hostgroups.cfg (file already exists)"
